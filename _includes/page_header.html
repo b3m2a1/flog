@@ -1,0 +1,14 @@
+<div class="page-header">
+  {% comment %}
+    For breadcrumbing and other things, we use a list of site URLs.
+    This can be expensive to generate so we cache it.
+    When adding new files we need to regenerate it.
+    Uncomment the following to remake the YAML for it.
+  <pre>
+urls: {% for url in all_page_urls %}
+ - {{url}}{% endfor %}
+  </pre>
+
+  {% endcomment %}
+  {% include breadcrumbs.html %}
+</div>

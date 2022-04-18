@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html lang="{{ site.lang | default: " en-US" }}">
+
+{% comment %}
+We'll set up a small number of global variables with the hope that
+this will improve performance...
+{% endcomment %}
+{% assign all_page_urls = "" %}
+{% include get_global_vars.html %}
+
+{% include head.html %}
+
+<body onload="finxJS.init()">
+    {% include header.html all_page_urls=all_page_urls %}
+    {% assign page_theme = site.page_theme %}
+    {% if page_theme == nil %}
+        {% assign page_theme = "page-body" %}
+    {% endif %}
+    <div class="{{page_theme}}">
+        {% include sidebar.html %}
+        {% assign content_theme = site.content_theme %}
+        {% include get_content_theme.html %}
+        <div class="{{content_theme}}">
+            {% include page_header.html %}
+            <div id="main-content" class="page-content">
+                {{ content }}
+            </div>
+        </div>
+    </div>
+    {% include footer.html %}
+
+  {% include scripts.html %}
+</body>
+
+</html>

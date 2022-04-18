@@ -1,0 +1,13 @@
+
+<title> {{site.title}} </title>
+
+<link rel='icon' href='{{site.url}}/{{site.icon}}'>
+
+{% include bootstrap.html %}
+{% include font-awesome.html %}
+{% seo %}
+<link rel="stylesheet" href="{{site.url}}/assets/css/pygment_trac.css">
+<link rel="stylesheet" href="{{site.url}}/assets/css/style.css">
+{% if page.custom_styles %}
+<link rel="stylesheet" href="{{site.url}}/assets/css/{{page.custom_styles}}.css">
+{% endif %}

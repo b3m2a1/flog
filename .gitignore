@@ -1,0 +1,10 @@
+*.gem
+.bundle
+.sass-cache
+_site
+node_modules
+vendor/*
+test/*
+.jekyll-metadata
+*.idea
+.DS_Store

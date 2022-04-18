@@ -1,0 +1,10 @@
+{% if site.links != nil %}
+    {% for link in site.links %}
+        {% if link.url contains "http" %}
+            {% assign link_url = link.url %}
+        {% else %}
+            {% assign link_url = site.url | append: "/" | append: link.url %}
+        {% endif %}
+        <a class="nav-link header-link" href="{{link_url}}">{{link.title}}</a>
+    {% endfor %}
+{% endif %}

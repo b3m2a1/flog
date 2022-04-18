@@ -1,0 +1,4 @@
+{% assign all_page_urls = site.data.cached_data['urls'] %}
+{% if all_page_urls == nil %}
+    {% assign all_page_urls = site.html_pages|map:"url" %}
+{% endif %}

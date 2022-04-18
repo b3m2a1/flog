@@ -1,0 +1,9 @@
+{% assign content_fluid = site.content_fluid %}
+{% if content_fluid %}
+    {% assign content_container = "container-fluid" %}
+{%else%}
+    {% assign content_container = "container" %}
+{% endif %}
+{% if content_theme == nil %}
+    {% assign content_theme = "main-content " | append: content_container %}
+{% endif %}

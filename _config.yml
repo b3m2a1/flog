@@ -1,0 +1,71 @@
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely edit after that. If you find
+# yourself editing this file very often, consider using Jekyll's data files
+# feature for the data you need to update frequently.
+#
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
+
+# Site settings
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
+title: Finx
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "" # the base hostname & protocol for your site, e.g. http://example.com
+github_username:  b3m2a1
+footer_text: >-
+  Finx theme developed by b3m2a1
+sitemap_roots:
+  - References
+  - Documentation
+sitemap_depth: 2
+icon: assets/favicon.png
+links:
+  - url: about.html
+    title: About
+
+# Build settings
+markdown: kramdown
+plugins:
+  - jekyll-feed
+  - jekyll-include-cache
+  - jekyll-optional-front-matter
+  - jekyll-seo-tag
+
+collections:
+  docs:
+    output: true
+  references:
+    output: true
+
+defaults:
+  - scope:
+      path: "" # an empty string here means all files in the project
+    values:
+      layout: "post"
+  - scope:
+      path: "index.html|about.html|404.html|search.html"
+    values:
+      layout: "page"
+  - scope:
+      path: "References"
+      type: "pages"
+    values:
+      optional_scripts: true
+      custom_styles: "refs"
+      layout: "refs"
+  - scope:
+      path: "Documentation"
+      type: "pages"
+    values:
+      optional_scripts: true
+      annotations_type: "docs"
+      custom_styles: "docs"
+      layout: "docs"
+
+relative_links:
+  enabled: true

@@ -1,0 +1,102 @@
+{%- assign bread_settings = page.breadcrumbs -%}
+{%- unless page.url == "/" or bread_settings.enabled == false -%}
+{%- assign d_split = page.url|split:"/" -%}
+{%- assign b_path = "" -%}
+{%- assign p_depth = d_split|size|minus:2 -%}
+{%- assign p_min_depth = bread_settings.min_depth -%}
+{%- if p_min_depth == nil -%}
+    {%- assign p_min_depth = 1 -%}
+{%- endif -%}
+{%- comment -%}
+    Checking that urls are valid is expensive, so we'll allow it to be turned off
+{%- endcomment -%}
+{%- unless bread_settings.check_urls == false -%}
+{%- assign check_urls = true -%}
+{%- else -%}
+{%- assign check_urls = false -%}
+{%- assign url_ext = bread_settings.url_ext -%}
+{%- unless url_ext -%}{%- assign url_ext = "/" -%}{%- endunless %}
+{%- endunless %}
+{%- if p_depth > p_min_depth -%}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb {{site.breadcrumb_theme}}">
+        {%- comment -%}
+            We'll do a slightly funny thing where we only have the _last_ n breadcrumbs to legit be links
+        {%- endcomment -%}
+        {%- assign d_split = page.url|split:"/" -%}
+        {%- assign b_path = "" -%}
+        {%- assign p_depth = d_split|size|minus:2 -%}
+        {%- assign name = d_split[-1]|split:"."|first -%}
+        {%- comment -%}
+            We'll do another kinda funny thing where if we're an index file we drop the depth one more level
+        {%- endcomment -%}
+        {%- if name == "index" or name == d_split[-2] -%}
+            {%- assign p_depth = p_depth|minus:1 -%}
+        {%- endif -%}
+        {%- comment -%}
+            Next we'll figure out how many links we want to display as our crumb (defaults to 1)
+        {%- endcomment -%}
+        {%- assign breadcrumb_depth = bread_settings.num_links -%}
+        {%- if breadcrumb_depth == nil -%}
+            {%- assign breadcrumb_depth = 1 -%}
+        {%- endif -%}
+        {%- assign b_crumb_do_link = p_depth|minus:breadcrumb_depth -%}
+        {%- comment -%}
+            We pass these as an include because they're shared across chunks and the
+            performance gain is surprisingly large...
+        {%- endcomment -%}
+        {%- assign page_urls = all_page_urls %}
+        {%- for n in (1..p_depth) -%}
+            {%- assign b_path_el = d_split[n] -%}
+            {%- assign b_path = b_path|append:"/"|append:b_path_el -%}
+            {%- if n == p_depth -%}
+                {%- assign b_active = " active" -%}
+            {%- endif -%}
+
+            {%- comment -%}
+                We figure out if we want to link or nah based on if we're the last crumb or not
+            {%- endcomment -%}
+            {%- if n > b_crumb_do_link -%}
+                {%- comment -%}
+                    We try a few different flavors of possible links from most to least likely
+                {%- endcomment -%}
+
+
+                {%- if check_urls -%}
+                {%- comment -%}
+                    Ensures we have good crumbs, but at the cost of speed
+                {%- endcomment -%}
+                {%- assign b_path_url = b_path|append:"/" -%}
+                {%- unless page_urls contains b_path_url -%}
+
+                    {%- assign b_path_url = b_path|append:".html" -%}
+                    {%- unless page_urls contains b_path_url -%}
+
+                        {%- assign b_path_url = b_path|append:"/"|append:b_path_el|append:".html" -%}
+                        {%- unless page_urls contains b_path_url -%}
+                            {%- assign b_path_url = nil -%}
+                        {%- endunless -%}
+
+                    {%- endunless -%}
+
+                {%- endunless -%}
+                {%- else -%}
+                {%- comment -%}
+                    Assumes a default crumb pattern
+                {%- endcomment -%}
+                {%- assign b_path_url = b_path|append:url_ext -%}
+                {%- endif -%}
+            {%- else -%}
+                {%- assign b_path_url = nil -%}
+            {%- endif -%}
+            {%- assign b_path_el = b_path_el | url_decode | escape -%}
+            {%- unless b_path_url == nil -%}
+                <li class="breadcrumb-item{{b_active}}"><a class="breadcrumb-link" href="{{site.url}}/{{b_path_url}}">{{b_path_el}}</a></li>
+            {%- else -%}
+                <li class="breadcrumb-item{{b_active}}"><a class="breadcrumb-link">{{b_path_el}}</a></li>
+            {%- endunless -%}
+        {%- endfor -%}
+    </ol>
+</nav>
+{%- endif -%}
+{%- endunless -%}

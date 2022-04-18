@@ -1,0 +1,42 @@
+{%- comment -%} setup: list_class {%- endcomment -%}
+{%- if list_class == nil -%}
+    {%- assign list_class = include.list_class -%}
+    {%- if list_class == nil -%}
+        {%- assign list_class = "sitemap-link-list" -%}
+    {%- endif -%}
+{%- endif -%}
+
+{%- comment -%} setup: link_class {%- endcomment -%}
+{%- if link_class == nil -%}
+    {%- assign link_class = include.list_class -%}
+    {%- if link_class == nil -%}
+        {%- assign link_class = "sitemap-link" -%}
+    {%- endif -%}
+{%- endif -%}
+
+<div class="sitemap">
+    {%- unless site.sitemap_roots == nil -%}
+        {%- for root in site.sitemap_roots -%}
+            {%- if root.listing -%}
+                <ul class="{{list_class}}">
+                    {%- assign link_url = root.url -%}
+                    {%- assign link_name = root.name -%}
+                    <li class="{{link_class}}">
+                        {%- unless link_url == nil -%}
+                            <a href='{{site.url}}{{link_url}}'>{{link_name}}</a>
+                        {%- else -%}
+                            <a>{{link_name}}</a>
+                        {%- endunless -%}
+                    </li>
+                    {%- include sidebar_listing.html listing = root.listing -%}
+                </ul>
+            {%- else -%}
+                {%- assign max_depth = nil %}
+                {%- include path_tree.html parent = root.name max_depth = root.depth -%}
+            {%- endif -%}
+        {%- endfor -%}
+    {%- else -%}
+        {%- assign max_depth = nil %}
+        {%- include path_tree.html max_depth = sitemap_depth -%}
+    {%- endunless -%}
+</div>

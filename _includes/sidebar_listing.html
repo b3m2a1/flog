@@ -1,0 +1,38 @@
+
+{%- assign listing = include.listing -%}
+
+{%- comment -%} setup: list_class {%- endcomment -%}
+{%- if list_class == nil -%}
+    {%- assign list_class = include.list_class -%}
+    {%- if list_class == nil -%}
+        {%- assign list_class = "sitemap-link-list" -%}
+    {%- endif -%}
+{%- endif -%}
+
+{%- comment -%} setup: link_class {%- endcomment -%}
+{%- if link_class == nil -%}
+    {%- assign link_class = include.list_class -%}
+    {%- if link_class == nil -%}
+        {%- assign link_class = "sitemap-link" -%}
+    {%- endif -%}
+{%- endif -%}
+
+{%- unless listing == nil -%}
+<ul class="{{list_class}}">
+{%- for link in listing -%}
+    {%- assign link_url = link.url -%}
+    {%- assign link_name = link.name -%}
+    <li class="{{link_class}}">
+        {%- unless link_url == nil -%}
+            <a href='{{site.url}}{{link_url}}'>{{link_name}}</a>
+        {%- else -%}
+            <a>{{link_name}}</a>
+        {%- endunless -%}
+    </li>
+    {%- assign link_listing = link.listing -%}
+    {%- unless link_listing == nil -%}
+        {%- include sidebar_listing.html listing = link_listing -%}
+    {%- endunless -%}
+{%- endfor -%}
+</ul>
+{%- endunless -%}
