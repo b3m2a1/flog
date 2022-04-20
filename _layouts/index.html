@@ -50,7 +50,7 @@ layout: home
     </ul>
   </header>
   <div class="col-sm-9">
-    <h4 class="title"><a href="{{ article.url | prepend: site.baseurl | replace: '//', '/' }}">{{ article.title }}</a></h4>
+    <h4 class="title"><a href="{{ article.url | prepend: site.baseurl | replace: '//', '/' }}#body">{{ article.title }}</a></h4>
     <div class="content">
       {{ article.content | markdownify | strip_html | truncatewords: 50 }}
     </div>
