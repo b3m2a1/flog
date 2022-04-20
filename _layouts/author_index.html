@@ -1,0 +1,17 @@
+---
+layout: page
+---
+
+<h2>Authors</h2>
+<ul>
+{% for author in site.authors %}
+  {% assign slug=tag[0]|slugify %}
+  <li><a href="{{ '/author/'|append:slug|prepend:site.url }}"> {{author[0]}} </a> </li>
+{% endfor %}
+</ul>
+
+{% comment %}
+<div id="tag-cloud">
+  {{ site | tag_cloud }}
+</div>
+{% endcomment %}

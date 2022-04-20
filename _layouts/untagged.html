@@ -1,0 +1,12 @@
+---
+layout: page
+---
+<h2>Untagged</h2>
+<ul>
+{% for post in site.posts %}
+  {% assign numtags = post.tags|size %}
+  {% if  numtags == 0 %}
+  <li><a href="{{ post.url }}">{{ post.title }}</a> ({{ post.date | date_to_string }})</li>
+  {% endif %}
+{% endfor %}
+</ul>

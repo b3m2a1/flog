@@ -3,7 +3,13 @@
     {% if navbar_theme == nil %}
         {% assign navbar_theme = "navbar-dark bg-dark" %}
     {% endif %}
-    <nav class="navbar navbar-expand-lg {{navbar_theme}}">
+    {% if site.header_image != nil %}
+        {% assign header_image = site.header_image %}
+        {% unless header_image contains "http" %}
+            {% assign header_image = header_image|prepend:site.base_url %}
+        {% endunless %}
+    {% endif %}
+    <nav class="navbar navbar-expand-lg {{navbar_theme}} {% if site.header_image != nil %} navbar-with-image {% endif%}" {% if site.header_image != nil %} style="--finx-header-image:{{header_image}}" {% endif%}>
         <div class="container-fluid">
             <div class="row">
                 <button type="button" id="sidebarCollapse" class="btn toggle-sidebar-button">
@@ -13,6 +19,5 @@
                 {% include header_links.html %}
             </div>
         </div>
-
     </nav>
 </header>

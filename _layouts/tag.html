@@ -1,0 +1,18 @@
+---
+layout: page
+---
+{% assign tag = page.url|split:"/"|last|split:"."|first %}
+<h2>{{ tag | capitalize }}</h2>
+<ul>
+{% for post in site.posts %}
+  {% if post.tags contains tag %}
+  <li><a href="{{ post.url }}">{{ post.title }}</a> ({{ post.date | date_to_string }})</li>
+  {% endif %}
+{% endfor %}
+</ul>
+
+{% comment %}
+<div id="tag-cloud">
+  {{ site | tag_cloud }}
+</div>
+{% endcomment %}

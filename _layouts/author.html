@@ -1,0 +1,12 @@
+---
+layout: page
+---
+{% assign author = page.url|split:"/"|last|split:"."|first %}
+<h2>{{ author | capitalize }}</h2>
+<ul>
+{% for post in site.posts %}
+  {% if post.authors contains author %}
+  <li><a href="{{ post.url }}">{{ post.title }}</a> ({{ post.date | date_to_string }})</li>
+  {% endif %}
+{% endfor %}
+</ul>
