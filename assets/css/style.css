@@ -220,7 +220,7 @@ p img {
 
 :root {
     --finx-sidebar-width:250px;
-    --finx-sidebar-group-padding:5px;
+    --finx-sidebar-group-padding:15px;
     --finx-sidebar-link-list-padding:10px;
 }
 

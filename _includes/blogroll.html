@@ -16,8 +16,8 @@
 
 <div class="blogroll">
     {% if site.blogroll != nil %}
+    <h6 class="blogroll-header">Links</h6>
     <ul class="{{list_class}}">
-        <h6 class="blogroll-header">Links</h6>
         {% for link in site.blogroll %}
             {% if link.url contains "http" %}
                 {% assign link_url = link.url %}
