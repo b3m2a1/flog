@@ -1,7 +1,7 @@
 <header class="main-header {% if site.header_image != nil %}with-image{% endif %}">
     {% assign navbar_theme = site.navbar_theme %}
     {% if navbar_theme == nil %}
-        {% assign navbar_theme = "navbar-dark bg-dark" %}
+        {% assign navbar_theme = "" %}
     {% endif %}
     {% if site.header_image != nil %}
         {% assign header_image = site.header_image %}
@@ -17,7 +17,7 @@
     {% if navbar_brand_theme == nil %}
         {% assign navbar_brand_theme = "" %}
     {% endif %}
-    <nav class="navbar navbar-expand-lg {{navbar_theme}} {% if site.header_image != nil %}with-image{% endif%}" {% if site.header_image != nil %} style="--finx-header-image:url({{header_image}})" {% endif %}>
+    <nav class="navbar site-navbar site-header navbar-expand-lg {{navbar_theme}} {% if site.header_image != nil %}with-image{% endif%}" {% if site.header_image != nil %} style="--finx-header-image:url({{header_image}})" {% endif %}>
         <div class="container-fluid header-links-container">
             <div class="row">
                 <button type="button" id="sidebarCollapse" class="btn toggle-sidebar-button">
