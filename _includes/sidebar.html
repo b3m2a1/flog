@@ -19,6 +19,8 @@
         {% include search.html %}
     {% endif %}
     <hr/>
-    {% include_cached sitemap.html %}
     {% include blogroll.html %}
+    {% if site.include_sitemap == true %}
+        {% include_cached sitemap.html %}
+    {% endif %}
 </nav>
