@@ -95,6 +95,10 @@ blockquote {
     width: 100%;
 }
 
+.teaser li {
+    list-style-type: none;
+}
+
 .meta-row {
     padding-bottom: 15px;
 }
